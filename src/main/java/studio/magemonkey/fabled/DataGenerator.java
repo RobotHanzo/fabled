@@ -28,11 +28,10 @@ public class DataGenerator {
             throw new IllegalArgumentException();
         }
 
-        String[] splitVersion = args[0].split("\\.");
-        String   version      = splitVersion[0] + (splitVersion.length >= 2 ? '_' + splitVersion[1] : "");
+        String   version      = args[0].replace(".", "_");
 
         boolean useTypescript = Arrays.stream(args).noneMatch(Predicate.isEqual("js"));
-        File    file          = new File("output/" + version.replace("_", ".") + "." + (useTypescript ? "ts" : "js"));
+        File    file          = new File("output/" + args[0] + "." + (useTypescript ? "ts" : "js"));
         file.delete();
         file.getParentFile().mkdirs();
         Server server = MockBukkit.mock();
